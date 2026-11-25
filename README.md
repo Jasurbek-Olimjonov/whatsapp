@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# WhatsApp UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A WhatsApp-inspired React interface for exploring reusable components, Sass styling, and CSS gradients. Contact, chat, and story content is sample data; the project does not connect to a backend.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Header with a theme toggle, personal story, and contact story rings.
+- Chat list with message previews and delivery-status icons.
+- Light and dark themes. The selected theme is saved in `localStorage` under `theme` and restored when the app loads.
+- Story rings built with the CSS `conic-gradient()` background. Their segments are generated from each story's status: seen stories are grey, unseen stories are teal, and transparent gaps separate the segments. The gradient starts at `-90deg`.
 
-### `npm start`
+## Project structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```text
+src/
+├── App.js                    # App layout and theme state
+├── App.scss                  # Theme styles
+├── scss/utilities.scss       # Shared Sass color variables
+├── db/index.js               # Sample contacts, messages, and stories
+└── components/
+    ├── header/               # App header and story list
+    ├── main/                 # Chat list
+    ├── footer/               # Bottom navigation
+    └── additions/            # Reusable Chat and CircleRing components
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Styling
 
-### `npm test`
+Sass files provide component and theme styles. Shared theme colors are kept in `src/scss/utilities.scss`. `CircleRing` builds a `conic-gradient()` from story statuses and applies it as an inline background style.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Sample data
 
-### `npm run build`
+`src/db/index.js` exports `contacts`, `messages`, `stories`, and the current user's `Me` profile. Update these arrays and objects to change the displayed sample content. Profile images are stored in `public/media/`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Run locally
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+From this directory, install dependencies and start the development server:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm install
+npm start
+```
 
-### `npm run eject`
+The app opens at [http://localhost:3000](http://localhost:3000).
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Available scripts
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| Command | Description |
+| --- | --- |
+| `npm start` | Run the development server. |
+| `npm test` | Run tests in watch mode. |
+| `npm run build` | Create an optimized production build in `build/`. |
