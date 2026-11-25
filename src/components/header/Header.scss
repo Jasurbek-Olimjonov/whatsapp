@@ -1,0 +1,18 @@
+.circle-ring-list {
+    flex-wrap: nowrap;
+    margin: 0 -18px 0 0;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+}
+
+.camera {
+    width: 24px;
+    height: 24px;
+    z-index: 800;
+    font-size: 11px;
+    right: 0;
+    bottom: 15%;
+}

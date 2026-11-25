@@ -1,5 +1,6 @@
 import {Chat} from '../additions';
 import {messages, contacts} from '../../db';
+import './Main.scss'
 
 const Main = () => {
     return (

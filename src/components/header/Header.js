@@ -1,7 +1,8 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSignal, faEllipsisVertical, faSearch, faWifi, faBattery, faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
+import {faSignal, faCamera, faEllipsisVertical, faSearch, faWifi, faBattery, faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
 import {CircleRing} from '../additions';
-import {contacts, stories} from '../../db';
+import {contacts, stories, Me} from '../../db';
+import './Header.scss';
 
 const Header = (props) => {
     return (
@@ -29,19 +30,27 @@ const Header = (props) => {
                     </div>
                 </div>
                 <div className="circle-ring-list ps-3 d-flex align-items-center gap-3">
-                    {contacts.map((contact) => {
-                        const belong = stories.find((story) => story.contact_id === contact.contact_id);
-                        if (belong) {
-                            return (
-                                <CircleRing
-                                    key={contact.contact_id}
-                                    contact={contact}
-                                    stories={belong.story}
-                                />
-                            );
+                    <div className="position-relative">
+                        {
+                            <CircleRing
+                                key={Me.contact_id}
+                                contact={Me}
+                                stories={stories.find((story) => story.contact_id === Me.contact_id).story}
+                            />
                         }
-                        return null;
-                    })}
+                        <span className='d-block position-absolute d-flex align-items-center justify-content-center camera rounded-circle bg-light'>
+                            <FontAwesomeIcon icon={faCamera} />
+                        </span>
+                    </div>
+                    {[...contacts]
+                        .sort((a, b) => a.contact_id - b.contact_id)
+                        .map((contact) => {
+                            const belong = stories.find((story) => story.contact_id === contact.contact_id);
+                            if (belong) {
+                                return <CircleRing key={contact.contact_id} contact={contact} stories={belong.story} />;
+                            }
+                            return null;
+                        })}
                 </div>
             </aside>
         </>

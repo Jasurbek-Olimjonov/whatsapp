@@ -1,38 +1,44 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
+import './index.scss';
 
 const CircleRing = ({contact, stories}) => {
     if (!contact || !stories) return null;
 
     if (!Array.isArray(stories)) {
-        throw new TypeError('CircleRing stories must be an array.');
+        throw new TypeError('Stories must be an array.');
     }
 
     let background;
-    let name = contact.name.slice(0, 10)
+    let name = contact.name.slice(0, 10);
 
     if (stories.length > 0) {
         const slice = 360 / stories.length;
         const gap = 5;
         const stops = [];
+        const sortedStories = [...stories].sort((a, b) => {
+            if (a.status === b.status) return 0;
+            return a.status === 'seen' ? -1 : 1;
+        });
 
-        stories.forEach((story, index) => {
+        sortedStories.forEach((story, index) => {
             const start = index * slice;
             const end = start + slice - gap;
             const coming = (index + 1) * slice;
 
-            stops.push(`#00BFA5 ${start}deg`, `#00BFA5 ${end}deg`);
+            if (story.status === 'seen') stops.push(`grey ${start}deg`, `grey ${end}deg`);
+            else stops.push(`#00BFA5 ${start}deg`, `#00BFA5 ${end}deg`);
 
             stops.push(`transparent ${end}deg ${coming}deg`);
         });
 
-        background = `conic-gradient(${stops.join(', ')})`;
+        background = `conic-gradient(from -90deg, ${stops.join(', ')})`;
     }
 
     return (
         <div className="text-center">
             <div className="circle-ring" style={{background}}>
-                <div className="rounded-circle bg-primary border position-relative border-2 border-bg overflow-hidden">
+                <div className="rounded-circle bg-primary border position-relative border-2 h-100 w-100 border-bg overflow-hidden">
                     <img
                         src={contact.image}
                         alt={contact.name}
@@ -80,11 +86,15 @@ const Chat = ({contact, messages}) => {
     return (
         <div className="d-flex gap-2">
             <span className="chat-logo position-relative rounded-circle overflow-hidden">
-                <img src={contact.image} alt="" className="w-100 h-100 top-50 start-50 object-fit-cover translate-middle position-absolute" />
+                <img
+                    src={contact.image}
+                    alt=""
+                    className="w-100 h-100 top-50 start-50 object-fit-cover translate-middle position-absolute"
+                />
             </span>
             <div className="d-flex flex-column flex-fill gap-1 justify-content-center chat-content">
                 <div className="d-flex align-items-center justify-content-between">
-                    <h5>{contact.name}</h5>
+                    <h6>{contact.name}</h6>
                     <p>{message.time}</p>
                 </div>
                 <div className="d-flex">

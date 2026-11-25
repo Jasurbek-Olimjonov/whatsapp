@@ -111,6 +111,21 @@ const stories = [
             {name: '#', status: 'seen'},
         ],
     },
+    {
+        contact_id: 0,
+        story: [
+            {name: '#', status: 'seen'},
+            {name: '#', status: 'seen'},
+            {name: '#', status: 'seen'},
+            {name: '#', status: 'seen'},
+        ],
+    },
 ];
 
-export {contacts, messages, stories};
+const Me = {
+    contact_id: 0,
+    name: 'My story',
+    image: '/media/owner.jpg'
+}
+
+export {contacts, messages, stories, Me};

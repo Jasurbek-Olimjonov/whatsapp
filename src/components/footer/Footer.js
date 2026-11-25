@@ -1,5 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faMessage, faPhone, faUsers} from '@fortawesome/free-solid-svg-icons';
+import './Footer.scss'
 
 const Footer = (props) => (
     <footer className="border-top py-3 align-items-center">

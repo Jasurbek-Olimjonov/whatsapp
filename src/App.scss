@@ -1,0 +1,53 @@
+@import './scss/utilities';
+
+body,
+body * {
+    margin: 0;
+    padding: 0;
+    line-height: 100%;
+    box-sizing: border-box;
+}
+
+.whole {
+    height: 100vh !important;
+}
+
+.theme-light {
+    header {
+        background-color: $light_header_background;
+    }
+
+    main,
+    footer {
+        background-color: $white;
+    }
+
+    .back-bg {
+        background-color: $light_accent;
+    }
+
+    .border-bg {
+        border-color: $light_accent !important;
+    }
+}
+
+.theme-dark {
+    header,
+    main {
+        background-color: $dark_background;
+        color: $white;
+    }
+
+    .back-bg,
+    footer {
+        background-color: $dark_surface;
+        border-color: $dark_surface !important;
+        .rest {
+            color: $white;
+        }
+    }
+
+    .border-bg {
+        border-color: $dark_surface !important;
+    }
+}

@@ -1,13 +1,20 @@
-import './App.css';
-import {useState} from 'react';
+import './App.scss';
+import {useEffect, useState} from 'react';
 import Footer from './components/footer';
 import Header from './components/header';
 import Main from './components/main';
 
 const App = () => {
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState(() => {
+        const savedTheme = localStorage.getItem('theme');
+        return savedTheme === 'dark' ? 'dark' : 'light';
+    });
 
-    const changeTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+    useEffect(() => {
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    const changeTheme = () => setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'));
 
     return (
         <div className={`container theme-${theme} mt-5`}>
