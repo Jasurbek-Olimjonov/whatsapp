@@ -1,8 +1,12 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
+import { ChatInfo, RingInfo } from '../../contexts';
+import React, { useContext } from 'react';
 
-const CircleRing = ({contact, stories}) => {
+const CircleRing = React.memo(function CircleRing() {
+    console.log("circle ring")
+    const {contact, stories} = useContext(RingInfo);
     if (!contact || !stories) return null;
 
     if (!Array.isArray(stories)) {
@@ -49,18 +53,21 @@ const CircleRing = ({contact, stories}) => {
             <p className="text-white mt-1 names">{name}</p>
         </div>
     );
-};
+});
 
-const DoubleCheck = ({color}) => {
+const DoubleCheck = React.memo(function DoubleCheck({color}) {
+    console.log("double check")
     return (
         <div className={`position-relative ${color}`}>
             <FontAwesomeIcon icon={faCheck} />
             <FontAwesomeIcon className="position-absolute doubler" icon={faCheck} />
         </div>
     );
-};
+});
 
-const Chat = ({contact, messages}) => {
+const Chat = React.memo(function Chat() {
+    console.log("chat")
+    const {contact, messages} = useContext(ChatInfo);
     if (!contact || !Array.isArray(messages) || messages.length === 0) {
         return null;
     }
@@ -105,6 +112,6 @@ const Chat = ({contact, messages}) => {
             </div>
         </div>
     );
-};
+});
 
 export {CircleRing, Chat};

@@ -1,29 +1,43 @@
 import './App.scss';
-import {useEffect, useState} from 'react';
-import Footer from './components/footer';
-import Header from './components/header';
-import Main from './components/main';
+import {useEffect, useReducer} from 'react';
+import Footer from './containers/footer';
+import Header from './containers/header';
+import Main from './containers/main';
+import {ThemeContext} from './contexts';
+
+const initialTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    return savedTheme === 'dark' ? 'dark' : 'light';
+};
+
+const changer = (state, action) => {
+    switch (action.type) {
+        case 'light':
+        case 'dark':
+            return action.type;
+        default:
+            return state;
+    }
+};
 
 const App = () => {
-    const [theme, setTheme] = useState(() => {
-        const savedTheme = localStorage.getItem('theme');
-        return savedTheme === 'dark' ? 'dark' : 'light';
-    });
+    console.log("app")
+    const [theme, dispatch] = useReducer(changer, 'dark', initialTheme);
 
     useEffect(() => {
         localStorage.setItem('theme', theme);
     }, [theme]);
-
-    const changeTheme = () => setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'));
 
     return (
         <div className={`container theme-${theme} mt-5`}>
             <div className="row justify-content-center mt-5">
                 <div className="col-sm-7 col-lg-5 col-xl-4">
                     <div className="border">
-                        <Header changeTheme={changeTheme} theme={theme} />
-                        <Main />
-                        <Footer />
+                        <ThemeContext.Provider value={{theme, dispatch}}>
+                            <Header />
+                            <Main />
+                            <Footer />
+                        </ThemeContext.Provider>
                     </div>
                 </div>
             </div>
